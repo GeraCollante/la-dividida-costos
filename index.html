@@ -45,6 +45,7 @@
   th,td{padding:11px 15px;text-align:left;border-bottom:1px solid var(--linea);vertical-align:top}
   th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);background:#fafbfb}
   td.cost{font-weight:700;white-space:nowrap;text-align:right}
+  td.it .lucide{width:15px;height:15px;vertical-align:-2px;color:var(--verde2);margin-right:6px}
   td.it small{display:block;color:var(--gris);font-weight:400;font-size:12.5px;margin-top:2px}
   .grouprow td{background:#f3f6f4;color:var(--verde);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
   .subtot td{font-weight:700;background:#fcfdfc}
@@ -55,19 +56,29 @@
   /* calculadora */
   .calc{display:flex;flex-direction:column;gap:20px}
   .calc .controls,.calc .results{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px}
-  .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 28px;align-content:start}
+  .controls{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 28px;align-content:start}
   .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .dolarbox{display:flex;align-items:center;gap:10px;background:var(--verde);color:#fff;border-radius:12px;padding:10px 16px;margin-bottom:16px;font-size:14px;font-weight:600;flex-wrap:wrap}
+  .dolarbox b{font-family:'Saira Condensed',sans-serif;font-size:24px;color:var(--amarillo);letter-spacing:.5px}
+  .dolarbox small{margin-left:auto;font-weight:400;opacity:.7;font-size:12px}
+  .dolarbox .lucide{color:var(--amarillo)}
   .grp{grid-column:1/-1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);
        margin:16px 0 8px;border-bottom:1px solid var(--linea);padding-bottom:4px;display:flex;align-items:center;gap:6px}
   .grp:first-child{margin-top:0}
   .ctl{margin-bottom:11px}
   .ctl .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
   .ctl label{font-size:13px;font-weight:600}
+  .ctl label .lucide{width:14px;height:14px;vertical-align:-2px;color:var(--verde2);margin-right:3px;opacity:.8}
   .ctl .val{font-size:13px;font-weight:700;color:var(--verde);font-variant-numeric:tabular-nums}
   .ctl input[type=range]{width:100%;margin-top:5px;accent-color:var(--verde);cursor:pointer}
   .ctl input[type=number]{width:100%;margin-top:5px;padding:7px 9px;border:2px solid var(--verde);
        border-radius:8px;font-size:16px;font-weight:700;color:var(--verde);text-align:right;background:#f7faf8}
   .ctl .hint{font-size:11px;color:var(--gris)}
+  .weekstrip{grid-column:1/-1;display:flex;justify-content:space-between;gap:6px;padding:12px 4px 4px}
+  .vfader{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1}
+  .vfader input[type=range]{writing-mode:vertical-lr;direction:rtl;-webkit-appearance:slider-vertical;appearance:slider-vertical;width:10px;height:120px;accent-color:var(--verde);cursor:pointer}
+  .vval{font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:19px;color:var(--verde)}
+  .vday{font-size:12px;color:var(--gris);font-weight:600}
   .results{display:flex;flex-direction:column;gap:14px}
   .results .big{background:#fafbfb;border:1px solid var(--linea);border-radius:12px;padding:14px;text-align:center}
   .results .big .k{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris)}
@@ -75,7 +86,7 @@
   .results .big .v small{font-size:14px;color:var(--gris);font-weight:600}
   .pay-ok{color:var(--ok)} .pay-warn{color:#c79200} .pay-bad{color:var(--hund)}
   .twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}.twocol .v{font-size:22px}
-  canvas{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--linea);border-radius:12px}
+  .chartbox{position:relative;width:100%;height:360px;background:#fff;border:1px solid var(--linea);border-radius:12px;padding:12px 12px 6px}
   .chart-cap{font-size:12px;color:var(--gris);text-align:center;margin-top:-4px}
   .box{border-radius:14px;padding:16px;border:1px solid var(--linea);background:#fff;margin-bottom:12px}
   .box .h{font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;margin-bottom:6px}
@@ -88,6 +99,27 @@
   ul.clean li:last-child{border-bottom:none} ul.clean li:before{content:"•";position:absolute;left:5px;color:var(--verde);font-weight:700}
   .riesgos{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
   .conf td:last-child{text-align:center;white-space:nowrap}
+  .todos{padding:4px 2px}
+  .todo-grp{font-family:'Saira',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--verde);background:#f3f6f4;padding:10px 16px}
+  .todo{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--linea);cursor:pointer;font-size:14px}
+  .todo:last-child{border-bottom:none}
+  .todo input{margin-top:2px;width:18px;height:18px;accent-color:var(--verde);cursor:pointer;flex:0 0 auto}
+  .todo span small{display:block;color:var(--gris);font-size:12.5px;margin-top:2px}
+  .todo input:checked + span{opacity:.5}
+  .todo input:checked + span b{text-decoration:line-through}
+  .todo-note{display:flex;gap:10px;align-items:flex-start;background:#fff7df;border-left:4px solid var(--amarillo);margin:6px 16px;padding:12px 14px;font-size:13.5px;border-radius:8px}
+  .todo-note .lucide{color:#caa400;flex:0 0 auto;margin-top:2px}
+  .todo-note b{color:var(--verde)}
+  .plan-sec{padding:18px 20px;border-bottom:1px solid var(--linea)}
+  .plan-sec:last-child{border-bottom:none}
+  .plan-sec h3{font-family:'Saira',sans-serif;font-size:16px;color:var(--verde);display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .plan-num{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;background:var(--verde);color:var(--amarillo);border-radius:7px;font-family:'Saira Condensed',sans-serif;font-weight:700;font-size:15px;flex:0 0 auto}
+  .plan-sec p{font-size:13.5px;margin-bottom:8px}
+  .plan-sec .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .plan-sec .opt{border:1px solid var(--linea);border-radius:10px;padding:13px;font-size:13px;background:#fafbfb}
+  .plan-sec .opt h4{font-family:'Saira',sans-serif;font-size:13.5px;margin-bottom:5px;color:var(--verde)}
+  .plan-sec .opt .pro{color:var(--ok)}.plan-sec .opt .con{color:var(--hund)}
+  @media(max-width:680px){.plan-sec .vs{grid-template-columns:1fr}}
   .foot{text-align:center;color:var(--gris);font-size:12px;margin-top:36px;line-height:1.7}
   .foot a{color:var(--verde);font-weight:600}
   .lucide{width:1.05em;height:1.05em;vertical-align:-.15em;stroke-width:2}
@@ -104,8 +136,8 @@
   <h1>Costos, Inversión y ROI</h1>
   <p>2 canchas de Fútbol 6 · ~1.800 m² · Río Primero (Córdoba) · modelo de comodato municipal</p>
   <div class="total">
-    <div class="num">USD ~32.000</div>
-    <div class="lbl">Fase 1 = toda la infraestructura + 1 cancha · ampliar a la 2ª cancha: +USD 8.000 → ~40.000 total · + reserva</div>
+    <div class="num">USD ~48.600</div>
+    <div class="lbl">Fase 1 = infraestructura + 1 cancha de 40×20 (césped monofilamento Forbex, cotización real 826 m²) · ampliar a la 2ª: +USD 26.400 → ~US$75.000 predio completo · o financiando las 2 con Forbex, desembolso inicial ~US$44.000</div>
   </div>
 </div>
 
@@ -113,7 +145,12 @@
 
   <section>
     <h2><i data-lucide="sliders-horizontal"></i> Calculadora de ROI</h2>
-    <p class="sub">Mové los sliders y mirá cómo cambia el repago. Precios en pesos de 500 en 500; el dólar lo editás a mano. Cargá tus números reales cuando los tengas.</p>
+    <p class="sub">El dólar se actualiza solo (blue de hoy). Mové los sliders y mirá el repago al instante. Precios en pesos de 500 en 500.</p>
+    <div id="dolarBox" class="dolarbox">
+      <i data-lucide="dollar-sign"></i><span>Dólar blue (en vivo)</span>
+      <b id="dolarVal">…</b>
+      <small id="dolarUpd">cargando…</small>
+    </div>
     <div class="calc">
       <div class="controls" id="controls"></div>
       <div class="results">
@@ -122,8 +159,12 @@
           <div class="big"><div class="k">Repago</div><div class="v" id="rPay">—</div></div>
           <div class="big"><div class="k">ROI anual</div><div class="v" id="rRoi">—</div></div>
         </div>
-        <canvas id="chart" width="1200" height="300"></canvas>
-        <div class="chart-cap">Caja acumulada a 48 meses (contrato). 🟡 = break-even. La pendiente se achata en verano (baja por calor, según temperatura real de la zona).</div>
+        <div class="chart-cap" style="font-weight:700;color:var(--verde);margin-bottom:2px;font-family:'Saira',sans-serif">Recaudación mensual vs. costos fijos (USD)</div>
+        <div class="chartbox" style="height:300px"><canvas id="chartMon"></canvas></div>
+        <div class="chart-cap">Color = nivel de ocupación: 🟢 alta · 🟠 media · 🔴 baja (calor + vacaciones + feriados) · línea roja punteada = costos fijos.</div>
+        <div class="chart-cap" style="font-weight:700;color:var(--verde);margin-top:10px;margin-bottom:2px;font-family:'Saira',sans-serif">Caja acumulada (USD)</div>
+        <div class="chartbox"><canvas id="chartCum"></canvas></div>
+        <div class="chart-cap">🟡 = break-even (recuperaste la inversión) · rojo = todavía recuperando · m48 = fin del contrato.</div>
       </div>
     </div>
   </section>
@@ -137,18 +178,18 @@
           <thead><tr><th>Rubro</th><th>Estado</th><th style="text-align:right">USD</th></tr></thead>
           <tbody>
             <tr class="grouprow"><td colspan="3">Infraestructura del predio · 1 sola vez (sirve a las 2 canchas)</td></tr>
-            <tr><td class="it">Suelo + estabilización suelo-cal <small>descapote, cal, piedra/granza, compactación (1.800 m²)</small></td><td><span class="tag hund"><i data-lucide="lock"></i>Hundido</span></td><td class="cost">4.200</td></tr>
-            <tr><td class="it">Iluminación LED — las 2 canchas, de una <small>reflectores, columnas, pilar, tablero, electricista</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">5.500</td></tr>
-            <tr><td class="it">Cerramiento perimetral + red de techo <small>caños, tejido romboidal, red anti-pelota</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recup.*</span></td><td class="cost">5.500</td></tr>
-            <tr><td class="it">Módulo sanitario + biodigestor</td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">2.000</td></tr>
-            <tr><td class="it">Cantina (contenedor adaptado)</td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">4.000</td></tr>
-            <tr><td class="it">Costos blandos <small>matriculado, ERSEP, seguro inicial, habilitación, agua, cámaras</small></td><td><span class="tag hund"><i data-lucide="lock"></i>Mixto</span></td><td class="cost">2.500</td></tr>
-            <tr class="subtot"><td>Subtotal infraestructura</td><td></td><td class="cost">23.700</td></tr>
-            <tr class="grouprow"><td colspan="3">Césped sintético · por cancha (ampliable)</td></tr>
-            <tr><td class="it">Cancha 1 <small>pasto monofilamento + arena + caucho + colocación (~500 m²)</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">8.000</td></tr>
-            <tr><td class="it">Cancha 2 <small>ampliación — se hace cuando la demanda lo justifique</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">8.000</td></tr>
-            <tr class="totrow"><td>FASE 1 — infra + cancha 1</td><td></td><td class="cost">~ 31.700</td></tr>
-            <tr class="totrow2"><td>PREDIO COMPLETO — 2 canchas</td><td></td><td class="cost">~ 39.700</td></tr>
+            <tr><td class="it"><i data-lucide="shovel"></i> Suelo + estabilización suelo-cal <small>descapote, cal, piedra/granza, compactación (1.800 m²) · ⚠ cotizar local</small></td><td><span class="tag hund"><i data-lucide="lock"></i>Hundido</span></td><td class="cost">4.200</td></tr>
+            <tr><td class="it"><i data-lucide="lightbulb"></i> Iluminación LED — las 2 canchas, de una <small>reflectores, columnas, pilar, tablero, electricista</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">3.500</td></tr>
+            <tr><td class="it"><i data-lucide="fence"></i> Cerramiento perimetral <small>caños estructurales + tejido romboidal (~240 m, 2 canchas de 40×20)</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recup.*</span></td><td class="cost">7.000</td></tr>
+            <tr><td class="it"><i data-lucide="toilet"></i> Módulo sanitario + biodigestor</td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">2.000</td></tr>
+            <tr><td class="it"><i data-lucide="container"></i> Cantina (contenedor adaptado)</td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">4.000</td></tr>
+            <tr><td class="it"><i data-lucide="clipboard-list"></i> Costos blandos <small>matriculado, ERSEP, seguro inicial, habilitación, agua, cámaras</small></td><td><span class="tag hund"><i data-lucide="lock"></i>Mixto</span></td><td class="cost">1.500</td></tr>
+            <tr class="subtot"><td>Subtotal infraestructura</td><td></td><td class="cost">22.200</td></tr>
+            <tr class="grouprow"><td colspan="3">Por cancha de 40×20 (ampliable) — césped + red de techo</td></tr>
+            <tr><td class="it"><i data-lucide="goal"></i> Cancha 1 <small>monofilamento TenCate 360 (Forbex) instalado US$22.467 (cotización real, 826 m² = 40×20, garantía 5 años) + red de techo ~US$3.900 · ⚠ + IVA, flete y arena aparte</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">26.400</td></tr>
+            <tr><td class="it"><i data-lucide="goal"></i> Cancha 2 <small>ampliación — misma medida, se hace cuando la demanda lo justifique</small></td><td><span class="tag ok"><i data-lucide="recycle"></i>Recuperable</span></td><td class="cost">26.400</td></tr>
+            <tr class="totrow"><td>FASE 1 — infra + cancha 1</td><td></td><td class="cost">~ 48.600</td></tr>
+            <tr class="totrow2"><td>PREDIO COMPLETO — 2 canchas</td><td></td><td class="cost">~ 75.000</td></tr>
           </tbody>
         </table>
       </div>
@@ -157,8 +198,8 @@
 
     <aside class="col-side">
       <h2><i data-lucide="recycle"></i> Qué te llevás vs. qué queda</h2>
-      <div class="box ok"><div class="h"><i data-lucide="circle-check"></i> Activos recuperables</div><div class="big">~ USD 33.000</div><small>Alfombras, reflectores, estructura desmontable, baño y contenedor. Se enrolla, se desatornilla y se va a otro predio.</small></div>
-      <div class="box hund"><div class="h"><i data-lucide="triangle-alert"></i> Costo hundido</div><div class="big">~ USD 6.700</div><small>Suelo-cal, bases de cemento y parte de los blandos. Quedan en el predio — el "regalo" al municipio: terreno nivelado y sin barro.</small></div>
+      <div class="box ok"><div class="h"><i data-lucide="circle-check"></i> Activos recuperables</div><div class="big">~ USD 69.000</div><small>Las 2 alfombras de 826 m², redes, reflectores, cerramiento desmontable, baño y contenedor. Se enrolla, se desatornilla y se va a otro predio.</small></div>
+      <div class="box hund"><div class="h"><i data-lucide="triangle-alert"></i> Costo hundido</div><div class="big">~ USD 5.700</div><small>Suelo-cal, bases de cemento y parte de los blandos. Quedan en el predio — el "regalo" al municipio: terreno nivelado y sin barro.</small></div>
 
       <h2><i data-lucide="scale"></i> Estructura legal</h2>
       <div class="card" style="padding:14px 18px">
@@ -197,6 +238,109 @@
     </div>
   </section>
 
+  <section>
+    <h2><i data-lucide="file-text"></i> Plan de Negocios y Análisis de Viabilidad</h2>
+    <p class="sub">Documento para tomar un café con tu socio y decidir. Recopila la llamada con Marcos (Córdoba), la cotización formal de Forbex (Bs. As.), los requerimientos técnicos y la realidad del mercado argentino.</p>
+    <div class="card">
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">1</span> El contexto y la oportunidad de mercado</h3>
+        <ul class="clean">
+          <li><b>Ubicación:</b> pueblo de 11.000/12.000 hab. (zona Ruta 19).</li>
+          <li><b>Terreno:</b> 1.800 m² — alcanza para hasta dos canchas de 40×20 (800 m² c/u) + pasillos, cantina y vestuarios.</li>
+          <li><b>Competencia:</b> canchas con +10 años, césped gastado, luz vieja y medidas reducidas.</li>
+          <li><b>Oportunidad:</b> en un pueblo de boca a boca, un complejo nuevo (LED, césped de última generación, medidas cómodas) absorbe rápido a los clientes de la zona: fútbol nocturno, escuelitas, torneos de finde y cantina post-partido.</li>
+        </ul>
+      </div>
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">2</span> Decisión estratégica: ¿34×17 o 40×20?</h3>
+        <p>El error del inversor primerizo es escatimar metros para ahorrar en césped.</p>
+        <div class="vs">
+          <div class="opt"><h4>34×17 (578 m²)</h4>La que ya existe en el pueblo. Fútbol 5 apretado, juego trabado y de choque. Más barata, pero <b class="con">no te diferencia de la competencia.</b></div>
+          <div class="opt"><h4>40×20 (800 m²) — recomendada</h4>Estándar FIFA F5/F6, recomendada por ambos proveedores. Mejor experiencia, el jugador no se asfixia. <b class="pro">Te blinda comercialmente:</b> nadie va a poder hacerte competencia con una cancha mejor.</div>
+        </div>
+      </div>
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">3</span> Comparativa de proveedores (la alfombra)</h3>
+        <p><b>Forbex</b> (Bs. As.) y <b>Tempo Grass / Limonta</b> (Córdoba) ofrecen calidad altísima (no chinos, +10 años de vida) a precios casi calcados: <b>U$S 19 a 30 el m²</b> (dólar oficial BNA), según grosor y tipo de hilo. Ambos incluyen: césped, recorte de líneas, pegamento, cintas, relleno de caucho y mano de obra de instalación.</p>
+        <p style="margin-top:6px"><b>Por qué conviene Córdoba (Marcos):</b></p>
+        <ul class="clean">
+          <li><b>Logística:</b> Forbex te cobra flete desde Bs. As. + hotel/comida 3 días para colocadores porteños. Marcos está a 50 km → flete ínfimo y los operarios van y vienen en el día. Ahorrás mucho en viáticos.</li>
+          <li><b>Post-venta:</b> ante un desgarro o problema de línea, el cordobés está a 45 minutos en auto.</li>
+        </ul>
+      </div>
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">4</span> Estructura de financiación (el motor)</h3>
+        <p>Las facturas están en dólares oficiales BNA, pero vos cobrás los turnos en pesos.</p>
+        <div class="vs">
+          <div class="opt"><h4>Modelo Forbex (agresivo)</h4>Solo <b>20% de anticipo</b> + <b>23 meses</b>. <span class="pro">Arrancás con poca plata.</span> <span class="con">Riesgo: ~10% anual en USD (0,81%/mes) sobre el saldo + exigen garantía propietaria. Un salto del dólar oficial puede encarecer la cuota.</span></div>
+          <div class="opt"><h4>Modelo Marcos (tradicional)</h4>Probablemente <b>40-50% de anticipo</b> + saldo en cheques a 30/60/90 días. <span class="pro">Te sacás la deuda rápido, sin comprometer patrimonio.</span></div>
+        </div>
+        <div class="note"><i data-lucide="lightbulb" style="color:#caa400"></i><div><b>La táctica:</b> usá el mail de Forbex en la reunión con Marcos para que mejore plazos (estirar a 6 meses sin interés o bajar el anticipo al 30%).</div></div>
+      </div>
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">5</span> Presupuesto total y costos ocultos (obra civil)</h3>
+        <p>No comprás una alfombra, construís una obra civil. Los proveedores <b>no incluyen</b>: arena, preparación del suelo, alambrados ni luces. Detalle para <b>1 cancha de 40×20 (826 m²) con el césped monofilamento TenCate 360 — cotización real Forbex, U$S 27/m²</b>:</p>
+        <table>
+          <tbody>
+            <tr><td class="it">Césped monofilamento TenCate 360 (826 m²) <small>cotización real Forbex; anticipo 20% = ~US$4.500, el resto en 23 cuotas</small></td><td class="cost">22.467</td></tr>
+            <tr><td class="it">Base de la cancha <small>mov. de suelo, nivelación láser, suelo-cemento, cordón cuneta perimetral · ⚠ si se hace mal, se hunde y perdés la garantía</small></td><td class="cost">5.500</td></tr>
+            <tr><td class="it">Arena de sílice <small>15.000–20.000 kg, seca y tamizada</small></td><td class="cost">1.500</td></tr>
+            <tr><td class="it">Herrería y cerramientos <small>postes, tejido (2m mín, ideal 3-4) + red de techo de nylon</small></td><td class="cost">5.000</td></tr>
+            <tr><td class="it">Iluminación <small>6-8 columnas, zanjeo, tablero + 12-16 reflectores LED</small></td><td class="cost">3.500</td></tr>
+            <tr class="totrow"><td>COSTO REAL 1 CANCHA (sin IVA)</td><td class="cost">~ 38.000</td></tr>
+            <tr class="totrow2"><td>COSTO REAL 2 CANCHAS (ahorro por escala)</td><td class="cost">~ 70.000</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">6</span> Flujo de caja inicial (la plata para abrir)</h3>
+        <p>Si arrancan con UNA cancha para probar el mercado, <b>NO necesitan los U$S 38.000 hoy.</b> Gracias a la financiación del césped, el capital real para cortar la cinta es:</p>
+        <table>
+          <tbody>
+            <tr><td class="it">Anticipo del césped (20%, Forbex)</td><td class="cost">~ 4.500</td></tr>
+            <tr><td class="it">Obra civil + insumos extra (de contado, en el pueblo)</td><td class="cost">~ 15.500</td></tr>
+            <tr class="totrow"><td>CAPITAL INICIAL REQUERIDO</td><td class="cost">~ 20.000</td></tr>
+          </tbody>
+        </table>
+        <div class="note"><i data-lucide="info"></i><div>Los ~U$S 18.000 restantes (que le debés a la empresa de césped) se pagan en 23 cuotas con la plata del alquiler de turnos + la cantina — la cuota se paga sola.</div></div>
+      </div>
+
+      <div class="plan-sec">
+        <h3><span class="plan-num">7</span> Próximos pasos (hoja de ruta)</h3>
+        <ul class="clean">
+          <li><b>Validar la "obra":</b> hablá con un albañil/maquinista de confianza (Río Primero/Santa Rosa) y cotizá cuánto sale nivelar + suelo-cemento de un rectángulo de 40×20. Esa es la base de todo.</li>
+          <li><b>Negociación local:</b> averiguá precios de postes, alambre y arena en los corralones de la zona — eso lo pagás "en pesos billete" ahí mismo.</li>
+          <li><b>La reunión con Marcos (Tempo Grass, Los Boulevares):</b> pedí presupuesto formal por 40×20 en distintas calidades de hilo; llevá el mail de Forbex impreso (20% + 23 meses) y decile: <i>"queremos comprarte a vos por logística, pero armanos un plan de cuotas cercano a esto sin matarnos con cheques a corto plazo"</i>.</li>
+          <li><b>Tributario:</b> hablá con un contador — los proveedores grandes facturan con IVA. Definí si lo absorbés como monotributista o armás una SAS/SRL para descargar el IVA.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2><i data-lucide="map"></i> Plan de acción · próximos pasos</h2>
+    <p class="sub">Tu hoja de ruta para arrancar. Tildá lo que vayas haciendo — se guarda solo en este dispositivo.</p>
+    <div class="card todos">
+      <div class="todo-grp">Fase 0 · Inteligencia (en paralelo, sin levantar perdiz)</div>
+      <label class="todo"><input type="checkbox" data-k="precio"><span><b>Precio de los sintéticos</b> — llamar a TempoGrass / GreenPro / Más Verde y pedir cotización por <b>~826 m²</b> (1 cancha de 40×20), con el checklist de preguntas. <small>Es por m², no depende del lote → hacelo ya.</small></span></label>
+      <label class="todo"><input type="checkbox" data-k="lugares"><span><b>Chequear lugares</b> — marcar 2-3 baldíos en Google Maps (zona con gente, acceso, y <b>luz trifásica + agua cerca</b>). Ir a verlos y sacar fotos.</span></label>
+      <label class="todo"><input type="checkbox" data-k="catastro"><span><b>Mapa de catastro</b> — pedir el estado de dominio de los lotes y confirmar que sean <b>100% municipales</b> (no AABE/ferrocarril). <small>Modo sigilo: usá la excusa del "galpón/depósito", no muestres la mano.</small></span></label>
+      <div class="todo-note"><i data-lucide="triangle-alert"></i><span><b>Regla de oro:</b> no gastes en nada (salvo cotizar el pasto) hasta que Catastro confirme que el lote es 100% municipal.</span></div>
+      <div class="todo-grp">Fase 1 · Solo si el lote es municipal</div>
+      <label class="todo"><input type="checkbox" data-k="carpeta"><span><b>Armar la carpeta</b> — renders 3D (ya los tenés) + esta web de costos + memoria descriptiva + impacto social.</span></label>
+      <label class="todo"><input type="checkbox" data-k="castello"><span><b>Reunión con Castelló</b> (Sec. Desarrollo Urbano) — que él lo suba a la intendenta Arneudo.</span></label>
+      <label class="todo"><input type="checkbox" data-k="iniciativa"><span><b>Iniciativa privada + comodato por ordenanza a 10 años</b> — para blindar plazo y derecho a igualar en la licitación.</span></label>
+      <label class="todo"><input type="checkbox" data-k="abogado"><span><b>Abogado administrativista local</b> — confirmar régimen de iniciativa privada, dominio del lote y armado del pliego. <small>La consulta más importante antes de invertir.</small></span></label>
+    </div>
+  </section>
+
   <div class="foot">
     Estimación orientativa · valores a junio 2026 · sujeto a cotización final.<br>
     Fuentes: doc estratégico interno · Muy Fútbol Córdoba · Megacontainers · AABE · Catastro Córdoba.<br>
@@ -206,54 +350,78 @@
 </div>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 const C = [
-  {g:"Ingresos — noche", icon:"moon"},
-  {id:"precioCabezaNoche", l:"Precio por cabeza (noche)", min:0, max:8000, step:500, def:2000, u:"ARS", hint:"por jugador, por turno"},
-  {id:"jugadores", l:"Jugadores por turno", min:6, max:16, step:1, def:12, u:"", hint:"F6 = 12 (6 vs 6)"},
-  {id:"turnosNoche", l:"Turnos por noche (prom.)", min:0, max:6, step:1, def:3, u:"", hint:"por cancha"},
-  {id:"diasMes", l:"Días activos por mes", min:4, max:30, step:1, def:16, u:""},
-  {id:"canchas", l:"Cantidad de canchas", min:1, max:3, step:1, def:2, u:""},
+  {g:"Precio y canchas", icon:"moon"},
+  {id:"precioCabezaNoche", icon:"ticket", l:"Precio por cabeza (noche)", min:0, max:8000, step:500, def:4000, u:"ARS", hint:"turno"},
+  {id:"canchas", icon:"goal", l:"Cantidad de canchas", min:1, max:3, step:1, def:1, u:""},
+  {g:"Turnos por noche, por día de semana", icon:"calendar"},
+  {special:"week"},
   {g:"Ingresos — extra", icon:"plus"},
-  {id:"precioCabezaDia", l:"Precio por cabeza (día)", min:0, max:6000, step:500, def:1000, u:"ARS"},
-  {id:"turnosDiaMes", l:"Turnos de día por mes (total)", min:0, max:120, step:5, def:20, u:""},
-  {id:"cantina", l:"Ganancia cantina por mes", min:0, max:1500000, step:500, def:300000, u:"ARS", hint:"el doc no lo cuantifica = upside"},
+  {id:"precioCabezaDia", icon:"sun", l:"Precio por cabeza (día)", min:0, max:6000, step:500, def:2000, u:"ARS", hint:"turno"},
+  {id:"turnosDiaMes", icon:"sun-dim", l:"Turnos de día por mes (total)", min:0, max:60, step:1, def:8, u:"", hint:"el día casi no mueve"},
+  {id:"cantinaTurno", icon:"beer", l:"Ganancia cantina por turno", min:0, max:15000, step:500, def:5000, u:"ARS", hint:"~6 de 12 compran · ~$1.250 c/u"},
+  {id:"asadosMes", icon:"flame", l:"Asados por mes", min:0, max:30, step:1, def:8, u:"", hint:"tercer tiempo: findes y ligas"},
+  {id:"gananciaAsado", icon:"beef", l:"Ganancia por asado", min:0, max:120000, step:5000, def:40000, u:"ARS", hint:"carne c/margen + parrilla (~12 pers)"},
   {g:"Estacionalidad — Córdoba", icon:"thermometer-sun"},
-  {id:"mesApertura", l:"Mes de apertura", min:0, max:11, step:1, def:2, u:"mes", hint:"abrir antes del verano cambia mucho el repago"},
-  {id:"umbralTemp", l:"Temp. tope cómoda", min:20, max:38, step:1, def:27, u:"°C", hint:"arriba de esto la gente deja de venir"},
-  {id:"ocupMin", l:"Ocupación en pico de calor", min:0, max:100, step:5, def:50, u:"%", hint:"enero ~30°C (máx. real de la zona)"},
+  {id:"mesApertura", icon:"calendar", l:"Mes de apertura", min:0, max:11, step:1, def:2, u:"mes", hint:"abrir antes del verano cambia mucho el repago"},
+  {id:"anioApertura", icon:"calendar-days", l:"Año de apertura", type:"num", min:2026, max:2035, step:1, def:2027, u:"año", hint:"define el eje de tiempo de los gráficos"},
+  {id:"umbralTemp", icon:"thermometer-sun", l:"Temp. tope cómoda", min:20, max:38, step:1, def:27, u:"°C", hint:"arriba de esto la gente deja de venir"},
+  {id:"ocupMin", icon:"snowflake", l:"Ocupación en pico de calor", min:0, max:100, step:5, def:50, u:"%", hint:"enero ~30°C (máx. real de la zona)"},
+  {id:"drenajeVac", icon:"palmtree", l:"Drenaje vacaciones (enero)", min:0, max:80, step:5, def:40, u:"%", hint:"la gente se va; feb y jul caen menos"},
+  {id:"efectoFeriado", icon:"party-popper", l:"Efecto por feriado", min:-10, max:10, step:1, def:-3, u:"%", hint:"– = se van el finde largo · + = llenan la cancha"},
   {g:"Costos operativos (mensual)", icon:"trending-down"},
-  {id:"luz", l:"Luz", min:0, max:600000, step:500, def:250000, u:"ARS", hint:"boleta real de la zona"},
-  {id:"encargado", l:"Encargado / playero", min:400000, max:2000000, step:100000, def:500000, u:"ARS"},
-  {id:"mantenimiento", l:"Mantenimiento", min:0, max:300000, step:500, def:60000, u:"ARS"},
-  {id:"otros", l:"Otros (seguros, limpieza…)", min:0, max:300000, step:500, def:50000, u:"ARS"},
+  {id:"luz", icon:"zap", l:"Luz", min:0, max:600000, step:500, def:150000, u:"ARS", hint:"1 cancha"},
+  {id:"encargado", icon:"users", l:"Encargado / playero", min:0, max:2000000, step:50000, def:1000000, u:"ARS", hint:"$500k viejo + $500k vieja"},
+  {id:"mantenimiento", icon:"wrench", l:"Mantenimiento", min:0, max:300000, step:500, def:40000, u:"ARS"},
+  {id:"otros", icon:"shield", l:"Otros (seguros, limpieza…)", min:0, max:300000, step:500, def:50000, u:"ARS"},
   {g:"Inversión y dólar", icon:"dollar-sign"},
-  {id:"capexUSD", l:"Inversión total (CAPEX)", min:15000, max:60000, step:500, def:40000, u:"USD", hint:"predio completo (2 canchas)"},
-  {id:"tc", l:"Precio del dólar (ARS/USD)", type:"num", min:500, max:5000, step:50, def:1300, u:"ARS/USD", hint:"editá a mano el valor de hoy"},
+  {id:"capexUSD", icon:"piggy-bank", l:"Inversión total (CAPEX)", min:15000, max:90000, step:500, def:48600, u:"USD", hint:"Fase 1: infra + 1 cancha de 40×20 (cotización Forbex real US$22.467)"},
+  {id:"tc", icon:"dollar-sign", l:"Precio del dólar (ARS/USD)", type:"num", min:500, max:5000, step:50, def:1300, u:"ARS/USD", hint:"se autocompleta con el blue de hoy · editable"},
 ];
 
 const fmt = n => Math.round(n).toLocaleString('es-AR');
 const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const lbl = off => { const t=st.mesApertura+off; const mo=((t%12)+12)%12;
+  const yr=st.anioApertura+Math.floor(t/12); return MONTHS[mo]+" '"+String(yr).slice(-2); };
 const st = {};
 const cont = document.getElementById('controls');
 C.forEach(c => {
   if (c.g){ const h=document.createElement('div'); h.className='grp';
     h.innerHTML=(c.icon?`<i data-lucide="${c.icon}"></i>`:``)+c.g; cont.appendChild(h); return; }
+  if (c.special==='week'){ buildWeekStrip(); return; }
   st[c.id]=c.def;
   const wrap=document.createElement('div'); wrap.className='ctl';
   if (c.type==='num'){
-    wrap.innerHTML=`<div class="row"><label>${c.l}</label></div>`+
+    wrap.innerHTML=`<div class="row"><label>${c.icon?'<i data-lucide="'+c.icon+'"></i> ':''}${c.l}</label></div>`+
       `<input type="number" id="i_${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.def}">`+
-      (c.hint?`<div class="hint">${c.hint}</div>`:``);
+      (c.hint?`<div class="hint" id="h_${c.id}">${c.hint}</div>`:``);
   } else {
-    wrap.innerHTML=`<div class="row"><label>${c.l}</label><span class="val" id="v_${c.id}"></span></div>`+
+    wrap.innerHTML=`<div class="row"><label>${c.icon?'<i data-lucide="'+c.icon+'"></i> ':''}${c.l}</label><span class="val" id="v_${c.id}"></span></div>`+
       `<input type="range" id="i_${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.def}">`+
-      (c.hint?`<div class="hint">${c.hint}</div>`:``);
+      (c.hint?`<div class="hint" id="h_${c.id}">${c.hint}</div>`:``);
   }
   cont.appendChild(wrap);
   const inp=wrap.querySelector('input');
   inp.addEventListener('input', ()=>{ st[c.id]=+inp.value||0; render(); });
 });
+
+function buildWeekStrip(){
+  const WD=[['tLun','Lun',3],['tMar','Mar',3],['tMie','Mié',4],['tJue','Jue',4],['tVie','Vie',2],['tSab','Sáb',2],['tDom','Dom',0]];
+  const strip=document.createElement('div'); strip.className='weekstrip';
+  WD.forEach(([id,lab,def])=>{
+    st[id]=def;
+    const f=document.createElement('div'); f.className='vfader';
+    f.innerHTML=`<span class="vval" id="v_${id}">${def}</span>`+
+      `<input type="range" min="0" max="8" step="1" value="${def}" id="i_${id}">`+
+      `<span class="vday">${lab}</span>`;
+    strip.appendChild(f);
+    const inp=f.querySelector('input');
+    inp.addEventListener('input',()=>{ st[id]=+inp.value; document.getElementById('v_'+id).textContent=inp.value; render(); });
+  });
+  cont.appendChild(strip);
+}
 
 function setVal(id,u){ const e=document.getElementById('v_'+id); if(!e)return;
   e.textContent=(u==='ARS'?'$'+fmt(st[id]):(u==='%'?fmt(st[id])+'%':(u==='°C'?fmt(st[id])+'°C':(u==='mes'?MONTHS[st[id]]:fmt(st[id]))))); }
@@ -261,57 +429,140 @@ function setVal(id,u){ const e=document.getElementById('v_'+id); if(!e)return;
 // temperatura máxima media mensual (Córdoba/Río Primero, Weather Spark) ene..dic
 const TEMPS=[30,28,27,24,20,18,18,20,23,25,28,29];
 const MAXT=Math.max(...TEMPS);
-function factorMes(cm){
+// éxodo de vacaciones (peso relativo): enero fuerte, feb medio, julio leve
+const VACW=[1,0.5,0,0,0,0,0.3,0,0,0,0,0];
+// feriados nacionales por mes — Argentina 2027
+const FERIADOS=[1,2,2,1,2,1,1,1,0,1,1,2];
+function factorCalor(cm){
   const t=TEMPS[cm];
   if(t<=st.umbralTemp || MAXT<=st.umbralTemp) return 1;
   const f=1-(1-st.ocupMin/100)*(t-st.umbralTemp)/(MAXT-st.umbralTemp);
   return Math.max(st.ocupMin/100, Math.min(1,f));
 }
+// ocupación del mes = calor × vacaciones × feriados
+function factorMes(cm){
+  const vac=1-VACW[cm]*(st.drenajeVac/100);
+  const fer=1+FERIADOS[cm]*(st.efectoFeriado/100);
+  return Math.max(0, Math.min(1, factorCalor(cm)*vac*fer));
+}
+let chartMon=null, chartCum=null;
 function render(){
   C.forEach(c=>{ if(c.id && c.type!=='num') setVal(c.id,c.u); });
-  const ingNoche=(st.precioCabezaNoche*st.jugadores)*st.turnosNoche*st.diasMes*st.canchas;
-  const ingDia=(st.precioCabezaDia*st.jugadores)*st.turnosDiaMes;
-  const ingresoPleno=ingNoche+ingDia+st.cantina;
-  const opex=st.luz+st.encargado+st.mantenimiento+st.otros;
-  const capexARS=st.capexUSD*st.tc;
+  const JUG=12, TC=st.tc||1; // siempre se cobra el turno completo
+  const hN=document.getElementById('h_precioCabezaNoche');
+  if(hN){ const t=st.precioCabezaNoche*JUG; hN.textContent=`turno completo ×12 = $${fmt(t)}  (US$ ${fmt(t/TC)})`; }
+  const hD=document.getElementById('h_precioCabezaDia');
+  if(hD){ const t=st.precioCabezaDia*JUG; hD.textContent=`turno = $${fmt(t)}  (US$ ${fmt(t/TC)})`; }
+  const turnosSemana=st.tLun+st.tMar+st.tMie+st.tJue+st.tVie+st.tSab+st.tDom;
+  const turnosMesNoche=turnosSemana*52/12;
+  const ingNoche=(st.precioCabezaNoche*JUG)*turnosMesNoche*st.canchas;
+  const ingDia=(st.precioCabezaDia*JUG)*st.turnosDiaMes;
+  const cantinaPleno=st.cantinaTurno*turnosMesNoche*st.canchas; // escala con los turnos
+  const asadoPleno=st.asadosMes*st.gananciaAsado;           // tercer tiempo
+  const ingresoPleno=ingNoche+ingDia+cantinaPleno+asadoPleno; // ARS, mes pleno
+  const opex=st.luz+st.encargado+st.mantenimiento+st.otros;  // ARS
+  const opexUSD=opex/TC;
   let sf=0; for(let m=0;m<12;m++) sf+=factorMes(m); const avg=sf/12;
-  const netoProm=ingresoPleno*avg-opex;
-  const netoUSD=st.tc?netoProm/st.tc:0;
-  // 48 meses arrancando en el mes de apertura, con la curva real de temperatura
-  const pts=[-capexARS]; let be=-1;
-  for(let m=1;m<=48;m++){ const cm=(st.mesApertura+(m-1))%12;
-    const v=pts[m-1]+(ingresoPleno*factorMes(cm)-opex); pts.push(v); if(be<0&&v>=0) be=m; }
+  const netoProm=ingresoPleno*avg-opex;                      // ARS prom.
+  const netoUSD=netoProm/TC;
+
+  // recaudación del primer año, arrancando en el mes de apertura (USD)
+  const revM=[], facM=[];
+  for(let m=0;m<12;m++){ const f=factorMes((st.mesApertura+m)%12); facM.push(f); revM.push(ingresoPleno*f/TC); }
+  // caja acumulada 48 meses (USD), desde el mes de apertura
+  const cum=[-st.capexUSD]; let be=-1;
+  for(let k=1;k<=48;k++){ const cm=(st.mesApertura+(k-1))%12;
+    const v=cum[k-1]+(ingresoPleno*factorMes(cm)-opex)/TC; cum.push(v); if(be<0&&v>=0) be=k; }
+
   document.getElementById('rNeto').innerHTML=
     `$${fmt(netoProm)} <small>ARS/mes prom.</small><br><span style="font-size:15px;color:var(--gris)">≈ US$ ${fmt(netoUSD)}/mes</span>`;
   const pay=document.getElementById('rPay');
   if(netoProm<=0||be<0){ pay.innerHTML=`<span class="pay-bad">+48</span> <small>meses</small>`; }
   else { const cls=be<24?'pay-ok':(be<=36?'pay-warn':'pay-bad');
     pay.innerHTML=`<span class="${cls}">${be}</span> <small>meses</small>`; }
-  const roi=netoProm*12/capexARS*100;
+  const roi=netoProm*12/(st.capexUSD*TC)*100;
   document.getElementById('rRoi').innerHTML=(netoProm<=0||!isFinite(roi)?'<span class="pay-bad">—</span>':`${fmt(roi)}<small>%</small>`);
-  drawChart(pts, be);
+
+  drawMonthly(revM, opexUSD, facM);
+  drawCum(cum, be);
 }
-function drawChart(pts, be){
-  const cv=document.getElementById('chart'),x=cv.getContext('2d');
-  const W=cv.width,H=cv.height,pad=46,months=48;
-  x.clearRect(0,0,W,H);
-  let minV=Math.min(...pts),maxV=Math.max(...pts); if(maxV===minV)maxV=minV+1;
-  const X=m=>pad+(W-pad-14)*(m/months), Y=v=>(H-pad)-(H-pad-14)*((v-minV)/(maxV-minV));
-  x.strokeStyle='#e6e9ec';x.lineWidth=1;x.beginPath();x.moveTo(pad,Y(0));x.lineTo(W-14,Y(0));x.stroke();
-  x.fillStyle='#9aa3ab';x.font='11px Inter,sans-serif';x.fillText('$0',6,Y(0)+4);
-  [0,12,24,36,48].forEach(m=>x.fillText('m'+m,X(m)-8,H-pad+18));
-  x.strokeStyle='#c9ccd0';x.setLineDash([4,4]);x.beginPath();x.moveTo(X(48),12);x.lineTo(X(48),H-pad);x.stroke();x.setLineDash([]);
-  x.beginPath();pts.forEach((v,m)=>{const px=X(m),py=Y(v);m?x.lineTo(px,py):x.moveTo(px,py);});
-  x.strokeStyle='#0f2e1f';x.lineWidth=2.5;x.stroke();
-  if(be>0&&be<=months){x.fillStyle='#ffd24a';x.strokeStyle='#caa400';
-    x.beginPath();x.arc(X(be),Y(0),6,0,7);x.fill();x.stroke();
-    x.fillStyle='#0f2e1f';x.font='bold 11px Inter,sans-serif';x.fillText(be+' meses',X(be)-18,Y(0)-12);}
-  const fin=pts[months];x.fillStyle=fin>=0?'#2f9e57':'#b6553a';x.font='bold 12px Inter,sans-serif';
-  x.fillText((fin>=0?'+$':'-$')+fmt(Math.abs(fin)),W-118,Y(fin)+(fin>=0?-8:16));
+
+const barColor=f=> f>=0.85?'#2f9e57':(f>=0.6?'#e0a52a':'#b6553a'); // verde / naranja / rojo
+function drawMonthly(rev, opexUSD, fac){
+  const ctx=document.getElementById('chartMon').getContext('2d');
+  const labels=Array.from({length:12},(_,m)=>lbl(m));
+  const colors=fac.map(barColor);
+  const line=rev.map(()=>opexUSD);
+  if(chartMon){ const d=chartMon.data; d.labels=labels; d.datasets[0].data=rev; d.datasets[0].backgroundColor=colors; d.datasets[1].data=line; chartMon.update('none'); return; }
+  chartMon=new Chart(ctx,{ data:{ labels, datasets:[
+    {type:'bar', label:'Recaudación', data:rev, backgroundColor:colors, borderRadius:4, order:2},
+    {type:'line', label:'Costos fijos', data:line, borderColor:'#b6553a', borderDash:[5,4], borderWidth:2, pointRadius:0, tension:0, order:1}
+  ]},
+    options:{ responsive:true, maintainAspectRatio:false, animation:false,
+      interaction:{intersect:false,mode:'index'},
+      plugins:{ legend:{display:true, position:'top', labels:{boxWidth:12, font:{family:'Inter'}, color:'#6b7680'}},
+        tooltip:{backgroundColor:'#0f2e1f', padding:10, callbacks:{ label:it=> it.dataset.label+': US$ '+fmt(it.parsed.y) }}},
+      scales:{ x:{grid:{display:false}, border:{display:false}, ticks:{font:{family:'Inter'},color:'#9aa3ab'}},
+               y:{grid:{color:'#eef0f2'}, border:{display:false}, afterFit:a=>{a.width=66;}, beginAtZero:true,
+                  ticks:{font:{family:'Inter'},color:'#9aa3ab', callback:v=>'$'+fmt(v)}} } }
+  });
+}
+
+function drawCum(pts, be){
+  const ctx=document.getElementById('chartCum').getContext('2d');
+  const pr=pts.map((_,m)=> m===be?6:(m===48?4:0));
+  const pb=pts.map((_,m)=> m===be?'#ffd24a':'#0f2e1f');
+  const pbw=pts.map((_,m)=> m===be?2:0);
+  const labels=pts.map((_,k)=>lbl(k));
+  if(chartCum){ chartCum.data.labels=labels; const ds=chartCum.data.datasets[0]; ds.data=pts; ds.pointRadius=pr; ds.pointBackgroundColor=pb; ds.pointBorderWidth=pbw; chartCum.update('none'); return; }
+  const grad=ctx.createLinearGradient(0,0,0,340);
+  grad.addColorStop(0,'rgba(47,158,87,.30)'); grad.addColorStop(1,'rgba(47,158,87,0)');
+  chartCum=new Chart(ctx,{ type:'line',
+    data:{ labels, datasets:[{
+      data:pts, borderColor:'#0f2e1f', borderWidth:2.5, tension:.25, fill:true, backgroundColor:grad,
+      pointRadius:pr, pointHoverRadius:5, pointBackgroundColor:pb, pointBorderColor:'#caa400', pointBorderWidth:pbw,
+      segment:{ borderColor:c=> (c.p0.parsed.y<0?'#b6553a':'#0f2e1f') } }]},
+    options:{ responsive:true, maintainAspectRatio:false, animation:false,
+      interaction:{intersect:false, mode:'index'},
+      plugins:{ legend:{display:false},
+        tooltip:{ backgroundColor:'#0f2e1f', padding:10, displayColors:false,
+          callbacks:{ title:it=>it[0].label, label:it=>(it.parsed.y>=0?'+US$ ':'-US$ ')+fmt(Math.abs(it.parsed.y))+' acum.' } } },
+      scales:{ x:{ grid:{display:false}, border:{display:false},
+              ticks:{ color:'#9aa3ab', font:{family:'Inter'}, autoSkip:false, maxRotation:0,
+                callback:function(v,i){ return i%12===0 ? this.getLabelForValue(v) : ''; } } },
+              y:{ grid:{color:'#eef0f2'}, border:{display:false}, afterFit:a=>{a.width=66;},
+              ticks:{ color:'#9aa3ab', font:{family:'Inter'},
+                callback:v=> v===0?'$0':'$'+(Math.abs(v)>=1000?(v/1000).toFixed(0)+'k':v) } } }
+    }
+  });
 }
 render();
 lucide.createIcons();
+fetchDolar();
 window.addEventListener('resize',render);
+
+// checklist con persistencia local
+document.querySelectorAll('.todo input[type=checkbox]').forEach(cb=>{
+  const k='todo_ld_'+cb.dataset.k;
+  cb.checked = localStorage.getItem(k)==='1';
+  cb.addEventListener('change', ()=> localStorage.setItem(k, cb.checked?'1':'0'));
+});
+
+async function fetchDolar(){
+  try{
+    const r=await fetch('https://dolarapi.com/v1/dolares/blue');
+    const d=await r.json();
+    const val=Math.round((d.compra+d.venta)/2);
+    st.tc=val;
+    const inp=document.getElementById('i_tc'); if(inp) inp.value=val;
+    document.getElementById('dolarVal').textContent='$'+fmt(val);
+    document.getElementById('dolarUpd').textContent='blue prom. · dolarapi.com';
+    render();
+  }catch(e){
+    document.getElementById('dolarVal').textContent='$'+fmt(st.tc);
+    document.getElementById('dolarUpd').textContent='sin conexión · valor manual';
+  }
+}
 </script>
 </body>
 </html>
