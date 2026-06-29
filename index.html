@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LA DIVIDIDA F6 — Costos e Inversión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Saira:wght@500;600;700&family=Saira+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --verde:#0f2e1f; --verde2:#15412c; --amarillo:#ffd24a; --tinta:#1a2229;
@@ -11,8 +14,15 @@
     --linea:#e6e9ec;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);
-       background:#eef1f3;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--tinta);
+       background:#eef1f3;line-height:1.5;-webkit-font-smoothing:antialiased;
+       font-feature-settings:"tnum" 1,"cv05" 1}
+  /* tipografía deliberada: Saira (deportiva) + Saira Condensed (marcador) + Inter (datos) */
+  h1,h2,.hero .badge,.grp,.box .h,.totrow td,.totrow2 td,.grouprow td{font-family:'Saira',system-ui,sans-serif}
+  .total .num,.results .big .v,td.cost{font-family:'Saira Condensed','Saira',sans-serif;
+       font-feature-settings:"tnum" 1;letter-spacing:.4px}
+  .hero h1{font-weight:700;letter-spacing:-.5px}
+  td.cost{font-size:16px;font-weight:600}
   .wrap{max-width:1200px;margin:0 auto;padding:0 22px 60px}
   .hero{background:linear-gradient(135deg,var(--verde),var(--verde2));color:#fff;
         padding:34px 28px;border-radius:0 0 22px 22px;text-align:center}
@@ -208,7 +218,7 @@ const C = [
   {id:"cantina", l:"Ganancia cantina por mes", min:0, max:1500000, step:500, def:300000, u:"ARS", hint:"el doc no lo cuantifica = upside"},
   {g:"Costos operativos (mensual)", icon:"trending-down"},
   {id:"luz", l:"Luz", min:0, max:600000, step:500, def:250000, u:"ARS", hint:"boleta real de la zona"},
-  {id:"encargado", l:"Encargado / playero", min:0, max:500000, step:500, def:150000, u:"ARS"},
+  {id:"encargado", l:"Encargado / playero", min:400000, max:2000000, step:100000, def:500000, u:"ARS"},
   {id:"mantenimiento", l:"Mantenimiento", min:0, max:300000, step:500, def:60000, u:"ARS"},
   {id:"otros", l:"Otros (seguros, limpieza…)", min:0, max:300000, step:500, def:50000, u:"ARS"},
   {g:"Inversión y dólar", icon:"dollar-sign"},
