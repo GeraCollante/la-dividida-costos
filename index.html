@@ -53,9 +53,10 @@
   .totrow td{background:var(--verde);color:#fff;font-weight:800;font-size:15px}.totrow td.cost{color:var(--amarillo)}
   .totrow2 td{background:#1c5238;color:#fff;font-weight:800;font-size:15px}.totrow2 td.cost{color:var(--amarillo)}
   /* calculadora */
-  .calc{display:grid;grid-template-columns:1.55fr 1fr;gap:20px}
+  .calc{display:flex;flex-direction:column;gap:20px}
   .calc .controls,.calc .results{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px}
-  .controls{display:grid;grid-template-columns:1fr 1fr;gap:2px 22px;align-content:start}
+  .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 28px;align-content:start}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .grp{grid-column:1/-1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);
        margin:16px 0 8px;border-bottom:1px solid var(--linea);padding-bottom:4px;display:flex;align-items:center;gap:6px}
   .grp:first-child{margin-top:0}
@@ -67,7 +68,7 @@
   .ctl input[type=number]{width:100%;margin-top:5px;padding:7px 9px;border:2px solid var(--verde);
        border-radius:8px;font-size:16px;font-weight:700;color:var(--verde);text-align:right;background:#f7faf8}
   .ctl .hint{font-size:11px;color:var(--gris)}
-  .results{display:flex;flex-direction:column;gap:12px}
+  .results{display:flex;flex-direction:column;gap:14px}
   .results .big{background:#fafbfb;border:1px solid var(--linea);border-radius:12px;padding:14px;text-align:center}
   .results .big .k{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris)}
   .results .big .v{font-size:30px;font-weight:800;line-height:1.1;margin-top:4px}
@@ -93,7 +94,8 @@
   h2 .lucide{width:21px;height:21px} .grp .lucide{width:14px;height:14px}
   .box .h .lucide{width:17px;height:17px} .badge .lucide{width:15px;height:15px}
   .conf .lucide{width:14px;height:14px;vertical-align:-.2em}
-  @media(max-width:900px){.cols,.calc,.riesgos,.controls{grid-template-columns:1fr}.hero h1{font-size:24px}}
+  @media(max-width:1100px){.controls{grid-template-columns:1fr 1fr}}
+  @media(max-width:760px){.cols,.riesgos,.controls,.kpis{grid-template-columns:1fr}.hero h1{font-size:24px}}
 </style>
 </head>
 <body>
@@ -115,12 +117,12 @@
     <div class="calc">
       <div class="controls" id="controls"></div>
       <div class="results">
-        <div class="big"><div class="k">Flujo neto mensual</div><div class="v" id="rNeto">—</div></div>
-        <div class="twocol">
+        <div class="kpis">
+          <div class="big"><div class="k">Flujo neto mensual</div><div class="v" id="rNeto">—</div></div>
           <div class="big"><div class="k">Repago</div><div class="v" id="rPay">—</div></div>
           <div class="big"><div class="k">ROI anual</div><div class="v" id="rRoi">—</div></div>
         </div>
-        <canvas id="chart" width="800" height="300"></canvas>
+        <canvas id="chart" width="1200" height="300"></canvas>
         <div class="chart-cap">Caja acumulada a 48 meses (contrato). 🟡 = break-even. La pendiente se achata en verano (baja por calor, según temperatura real de la zona).</div>
       </div>
     </div>
