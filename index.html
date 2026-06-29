@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LA DIVIDIDA F6 — Costos e Inversión</title>
+<style>
+  :root{
+    --verde:#0f2e1f; --verde2:#15412c; --amarillo:#ffd24a; --tinta:#1a2229;
+    --ok:#2f9e57; --okbg:#e7f6ec; --hund:#b6553a; --hundbg:#f7ebe6; --gris:#6b7680;
+    --linea:#e6e9ec; --azul:#2f6fb0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);
+       background:#f4f6f7;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+  .hero{background:linear-gradient(135deg,var(--verde),var(--verde2));color:#fff;
+        padding:36px 28px;border-radius:0 0 22px 22px;text-align:center}
+  .hero .badge{display:inline-block;border:2px solid var(--amarillo);color:var(--amarillo);
+        font-weight:700;font-size:13px;letter-spacing:2px;padding:4px 12px;border-radius:20px}
+  .hero h1{font-size:30px;margin:14px 0 4px;letter-spacing:.5px}
+  .hero p{opacity:.85;font-size:14px}
+  .total{margin:24px auto 0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+         border-radius:16px;padding:16px;max-width:440px}
+  .total .num{font-size:36px;font-weight:800;color:var(--amarillo);line-height:1}
+  .total .lbl{font-size:13px;opacity:.85;margin-top:6px}
+  section{margin-top:34px}
+  h2{font-size:20px;color:var(--verde);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  h2 .ic{font-size:22px}
+  .sub{color:var(--gris);font-size:14px;margin-bottom:14px}
+  .card{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--linea);vertical-align:top}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);background:#fafbfb}
+  td.cost{font-weight:700;white-space:nowrap;text-align:right}
+  tr:last-child td{border-bottom:none}
+  td.it small{display:block;color:var(--gris);font-weight:400;font-size:13px;margin-top:2px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .tag.ok{background:var(--okbg);color:var(--ok)}
+  .tag.hund{background:var(--hundbg);color:var(--hund)}
+  .totrow td{background:var(--verde);color:#fff;font-weight:800;font-size:16px}
+  .totrow td.cost{color:var(--amarillo)}
+  /* calculadora */
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .calc .controls,.calc .results{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:18px}
+  .grp{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);
+       margin:14px 0 8px;border-bottom:1px solid var(--linea);padding-bottom:4px}
+  .grp:first-child{margin-top:0}
+  .ctl{margin-bottom:12px}
+  .ctl .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .ctl label{font-size:13px;font-weight:600}
+  .ctl .val{font-size:13px;font-weight:700;color:var(--verde);font-variant-numeric:tabular-nums}
+  .ctl input[type=range]{width:100%;margin-top:5px;accent-color:var(--verde);cursor:pointer}
+  .ctl .hint{font-size:11px;color:var(--gris)}
+  .results .big{background:#fafbfb;border:1px solid var(--linea);border-radius:12px;padding:14px;margin-bottom:12px;text-align:center}
+  .results .big .k{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris)}
+  .results .big .v{font-size:30px;font-weight:800;line-height:1.1;margin-top:4px}
+  .results .big .v small{font-size:14px;color:var(--gris);font-weight:600}
+  .pay-ok{color:var(--ok)} .pay-warn{color:#c79200} .pay-bad{color:var(--hund)}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .twocol .big{margin-bottom:0}
+  .twocol .v{font-size:22px}
+  canvas{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--linea);border-radius:12px;margin-top:12px}
+  .chart-cap{font-size:12px;color:var(--gris);text-align:center;margin-top:6px}
+  /* split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .box{border-radius:14px;padding:18px;border:1px solid var(--linea);background:#fff}
+  .box .h{font-weight:700;font-size:14px;display:flex;gap:6px;margin-bottom:6px}
+  .box .big{font-size:22px;font-weight:800}
+  .box.ok .big{color:var(--ok)} .box.hund .big{color:var(--hund)}
+  .box small{color:var(--gris);font-size:13px}
+  .note{background:#fff7df;border-left:4px solid var(--amarillo);border-radius:8px;padding:14px 16px;font-size:14px;margin-top:14px}
+  .note.red{background:#fbece7;border-color:var(--hund)}
+  .note b{color:var(--verde)}
+  ul.clean{list-style:none} ul.clean li{padding:8px 0 8px 24px;position:relative;font-size:14px;border-bottom:1px solid var(--linea)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li:before{content:"•";position:absolute;left:6px;color:var(--verde);font-weight:700}
+  .conf td:last-child{text-align:center;white-space:nowrap}
+  .dot{font-size:11px}
+  .foot{text-align:center;color:var(--gris);font-size:12px;margin-top:36px;line-height:1.7}
+  .foot a{color:var(--verde);font-weight:600}
+  @media(max-width:680px){.calc{grid-template-columns:1fr}.split{grid-template-columns:1fr}.hero h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="badge">⚽ LA DIVIDIDA · F6</span>
+  <h1>Costos, Inversión y ROI</h1>
+  <p>2 canchas de Fútbol 6 · ~1.800 m² · Río Primero (Córdoba) · modelo de comodato municipal</p>
+  <div class="total">
+    <div class="num">USD 28.000</div>
+    <div class="lbl">inversión Fase 1 "llave en mano" · + reserva sugerida ~USD 12.000</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <h2><span class="ic">🧾</span> Desglose de inversión (CAPEX)</h2>
+    <p class="sub">Despiece estimado para el predio completo. <b>Recuperable</b> = te lo llevás si no te renuevan · <b>Hundido</b> = queda en el predio.</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Rubro</th><th>Estado</th><th style="text-align:right">USD</th></tr></thead>
+        <tbody>
+          <tr><td class="it">Suelo + estabilización suelo-cal <small>descapote, cal, piedra/granza, compactación (1.800 m²)</small></td><td><span class="tag hund">Hundido</span></td><td class="cost">4.200</td></tr>
+          <tr><td class="it">Césped sintético (2 canchas) <small>pasto monofilamento + arena sílice + caucho + colocación (~1.000 m²)</small></td><td><span class="tag ok">Recuperable</span></td><td class="cost">16.000</td></tr>
+          <tr><td class="it">Iluminación LED + pilar + electricista <small>12 reflectores, columnas, tablero ⚠️ torres sin precio firme → cotizar</small></td><td><span class="tag ok">Recuperable</span></td><td class="cost">3.500</td></tr>
+          <tr><td class="it">Cerramiento perimetral + red de techo <small>caños, tejido romboidal, red anti-pelota</small></td><td><span class="tag ok">Recuperable*</span></td><td class="cost">4.500</td></tr>
+          <tr><td class="it">Módulo sanitario + biodigestor <small>baño prefabricado + tratamiento ecológico</small></td><td><span class="tag ok">Recuperable</span></td><td class="cost">2.000</td></tr>
+          <tr><td class="it">Cantina (contenedor adaptado) <small>buffet/oficina, sobre bloques</small></td><td><span class="tag ok">Recuperable</span></td><td class="cost">4.000</td></tr>
+          <tr><td class="it">Costos blandos <small>matriculado, certificado ERSEP, seguro inicial, habilitación, agua/bomba, cámaras</small></td><td><span class="tag hund">Mixto</span></td><td class="cost">2.500</td></tr>
+          <tr class="totrow"><td>TOTAL Fase 1</td><td></td><td class="cost">~ 36.700</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--gris);margin-top:8px">* Recuperable solo si se arma <b>abulonado/desmontable</b>, no soldado y amurado. El doc base cierra una Fase 1 acotada en ~USD 28.000 dejando reserva; con todos los blandos y contingencia 10-20% es prudente prever <b>~USD 35.000–40.000</b>.</p>
+  </section>
+
+  <section>
+    <h2><span class="ic">🎚️</span> Calculadora de ROI</h2>
+    <p class="sub">Mové los sliders y mirá cómo cambia el repago. Los valores por defecto son estimaciones de mercado — <b>meté tus números reales</b> cuando los tengas.</p>
+    <div class="calc">
+      <div class="controls" id="controls"><!-- sliders generados por JS --></div>
+      <div class="results">
+        <div class="big">
+          <div class="k">Flujo neto mensual</div>
+          <div class="v" id="rNeto">—</div>
+        </div>
+        <div class="twocol">
+          <div class="big"><div class="k">Repago</div><div class="v" id="rPay">—</div></div>
+          <div class="big"><div class="k">ROI anual</div><div class="v" id="rRoi">—</div></div>
+        </div>
+        <canvas id="chart" width="800" height="320"></canvas>
+        <div class="chart-cap">Caja acumulada a 48 meses (duración del contrato). 🟡 = break-even.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="ic">♻️</span> Qué te llevás vs. qué queda</h2>
+    <div class="split">
+      <div class="box ok"><div class="h">✅ Activos recuperables</div><div class="big">~ USD 25.000 – 30.000</div><small>Alfombra, reflectores, estructura desmontable, módulo baño y contenedor. Se enrolla, se desatornilla y se va a otro predio.</small></div>
+      <div class="box hund"><div class="h">⚠️ Costo hundido</div><div class="big">~ USD 6.000 – 7.000</div><small>Suelo-cal, bases de cemento y parte de los blandos. Quedan en el predio — es el "regalo" al municipio: terreno nivelado y sin barro.</small></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="ic">⚖️</span> Estructura legal recomendada</h2>
+    <div class="card" style="padding:16px 20px">
+      <ul class="clean">
+        <li><b>Figura:</b> Comodato con cargo / permiso de uso con contraprestación — el municipio cede el predio 4 años sin cobrar alquiler; a cambio, infraestructura + uso gratuito de 8 a 17 hs.</li>
+        <li><b>Exigí Ordenanza del Concejo Deliberante</b>, no decreto del intendente. Le da fuerza de ley: un próximo gobierno (mandato vence 12/2027) necesitaría mayoría en el Concejo para echarte.</li>
+        <li><b>Evitá el "permiso precario":</b> es revocable en cualquier momento y solo indemniza el daño emergente (inversiones no amortizadas) — fuente AABE, Res. 134/2021.</li>
+        <li><b>Cláusula de retiro</b> por escrito: pasto, luces, cerramiento desmontable y contenedores son tuyos; solo la nivelación queda al predio.</li>
+      </ul>
+    </div>
+    <div class="note red"><b>Terreno = riesgo #1.</b> En Río Primero muchos lotes "a la vera de las vías" son del Estado Nacional (ex-ferrocarril / <b>AABE</b>), no municipales. Invertir ahí sin convenio AABE certificado = riesgo de desalojo federal. <b>Antes de poner un peso: verificá el dominio en Catastro</b> (nomenclatura catastral) y confirmá que sea 100% municipal.</div>
+  </section>
+
+  <section>
+    <h2><span class="ic">🔎</span> Supuestos, riesgos y nivel de confianza</h2>
+    <div class="note"><b>El supuesto más frágil es la demanda.</b> El repago de ~18-24 meses asume vender ~3 turnos/noche en un pueblo de ~12.000 hab. con competencia (clubes Rivadavia/Belgrano + canchas existentes). Si caés a 1-2 turnos/noche promedio, el repago se estira hacia el fin del contrato. <b>Validá la demanda real</b> antes de invertir.</div>
+    <div class="card" style="margin-top:14px">
+      <table class="conf">
+        <thead><tr><th>Dato</th><th>Fuente</th><th>Confianza</th></tr></thead>
+        <tbody>
+          <tr><td>Costo césped sintético (USD/m²)</td><td>Mercado AR + doc</td><td><span class="dot">🟡</span> media</td></tr>
+          <tr><td>Precio alquiler/hora</td><td>Córdoba interior (Muy Fútbol); <b>sin dato de Río Primero</b></td><td><span class="dot">🟡</span> media</td></tr>
+          <tr><td>Opex eléctrico (LED)</td><td>Boleta real + mercado</td><td><span class="dot">🟢</span> alta</td></tr>
+          <tr><td>Contenedores / cerramiento</td><td>Proveedores AR 2025-26</td><td><span class="dot">🟢</span> alta</td></tr>
+          <tr><td>Torres + reflectores LED</td><td>No documentado → <b>cotizar</b></td><td><span class="dot">🔴</span> baja</td></tr>
+          <tr><td>Demanda / ocupación local</td><td>Supuesto del modelo</td><td><span class="dot">🔴</span> baja</td></tr>
+          <tr><td>Marco legal (comodato/AABE)</td><td>Fuentes oficiales</td><td><span class="dot">🟢</span> alta</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--gris);margin-top:10px">Para pasar de "plausible" a "real": pedí 2-3 cotizaciones de pasto+torres, relevá precios de canchas en la zona y consultá un abogado por la figura legal y el dominio del lote.</p>
+  </section>
+
+  <div class="foot">
+    Estimación orientativa · valores en USD/ARS a junio 2026 · sujeto a cotización final.<br>
+    Fuentes: doc estratégico interno · Muy Fútbol Córdoba · Megacontainers · AABE (argentina.gob.ar) · Catastro Córdoba.<br>
+    🌐 Maqueta 3D interactiva: <a href="https://geracollante.github.io/la-dividida-f6/" target="_blank">ver el complejo 3D</a>
+  </div>
+
+</div>
+
+<script>
+// ---- definición de controles (defaults grounded) ----
+const C = [
+  {g:"Ingresos — noche"},
+  {id:"precioNoche", l:"Precio por turno noche", min:10000, max:50000, step:1000, def:25000, u:"ARS", hint:"Córdoba interior ~$10k (2024); doc: $25k (2026)"},
+  {id:"turnosNoche", l:"Turnos por noche (prom.)", min:0, max:6, step:1, def:3, u:"", hint:"por cancha"},
+  {id:"diasMes", l:"Días activos por mes", min:4, max:30, step:1, def:16, u:""},
+  {id:"canchas", l:"Cantidad de canchas", min:1, max:3, step:1, def:2, u:""},
+  {g:"Ingresos — extra"},
+  {id:"precioDia", l:"Precio turno día", min:0, max:30000, step:1000, def:12000, u:"ARS"},
+  {id:"turnosDiaMes", l:"Turnos de día por mes (total)", min:0, max:120, step:5, def:20, u:""},
+  {id:"cantina", l:"Ganancia cantina por mes", min:0, max:1500000, step:50000, def:300000, u:"ARS", hint:"el doc no lo cuantifica = upside"},
+  {g:"Costos operativos (mensual)"},
+  {id:"luz", l:"Luz", min:0, max:600000, step:10000, def:250000, u:"ARS", hint:"boleta real de la zona"},
+  {id:"encargado", l:"Encargado / playero", min:0, max:500000, step:10000, def:150000, u:"ARS"},
+  {id:"mantenimiento", l:"Mantenimiento", min:0, max:300000, step:10000, def:60000, u:"ARS"},
+  {id:"otros", l:"Otros (seguros, limpieza…)", min:0, max:300000, step:10000, def:50000, u:"ARS"},
+  {g:"Inversión y dólar"},
+  {id:"capexUSD", l:"Inversión total (CAPEX)", min:15000, max:60000, step:1000, def:37000, u:"USD"},
+  {id:"tc", l:"Tipo de cambio", min:800, max:2500, step:50, def:1300, u:"ARS/USD"},
+];
+
+const fmt = n => Math.round(n).toLocaleString('es-AR');
+const st = {};
+const cont = document.getElementById('controls');
+C.forEach(c => {
+  if (c.g) { const h=document.createElement('div'); h.className='grp'; h.textContent=c.g; cont.appendChild(h); return; }
+  st[c.id] = c.def;
+  const wrap=document.createElement('div'); wrap.className='ctl';
+  wrap.innerHTML =
+    `<div class="row"><label>${c.l}</label><span class="val" id="v_${c.id}"></span></div>`+
+    `<input type="range" id="i_${c.id}" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.def}">`+
+    (c.hint?`<div class="hint">${c.hint}</div>`:``);
+  cont.appendChild(wrap);
+  const inp=wrap.querySelector('input');
+  inp.addEventListener('input', ()=>{ st[c.id]=+inp.value; render(); });
+  c.unit=c.u;
+});
+
+function setVal(id,u){ const e=document.getElementById('v_'+id); if(e) e.textContent = (u==='USD'||u==='ARS'? '$'+fmt(st[id]) : fmt(st[id])) + (u&&u!=='USD'&&u!=='ARS'?' '+u:'') ; }
+
+function render(){
+  C.forEach(c=>{ if(c.id) setVal(c.id, c.u); });
+  const ingNoche = st.precioNoche*st.turnosNoche*st.diasMes*st.canchas;
+  const ingDia = st.precioDia*st.turnosDiaMes;
+  const ingreso = ingNoche+ingDia+st.cantina;
+  const opex = st.luz+st.encargado+st.mantenimiento+st.otros;
+  const neto = ingreso-opex;
+  const capexARS = st.capexUSD*st.tc;
+  const netoUSD = neto/st.tc;
+
+  document.getElementById('rNeto').innerHTML =
+    `$${fmt(neto)} <small>ARS/mes</small><br><span style="font-size:15px;color:var(--gris)">≈ US$ ${fmt(netoUSD)}/mes</span>`;
+
+  const pay = document.getElementById('rPay');
+  if (neto<=0){ pay.innerHTML=`<span class="pay-bad">no repaga</span>`; }
+  else {
+    const m = capexARS/neto;
+    const cls = m<24?'pay-ok':(m<=36?'pay-warn':'pay-bad');
+    const txt = m>60? '+60' : Math.round(m);
+    pay.innerHTML = `<span class="${cls}">${txt}</span> <small>meses</small>`;
+  }
+  const roi = neto*12/capexARS*100;
+  document.getElementById('rRoi').innerHTML = (neto<=0?'<span class="pay-bad">—</span>':`${fmt(roi)}<small>%</small>`);
+
+  drawChart(neto, capexARS);
+}
+
+function drawChart(neto, capex){
+  const cv=document.getElementById('chart'), x=cv.getContext('2d');
+  const W=cv.width, H=cv.height, pad=40, months=48;
+  x.clearRect(0,0,W,H);
+  // serie acumulada
+  const pts=[]; let minV=-capex, maxV=-capex;
+  for(let m=0;m<=months;m++){ const v=-capex+neto*m; pts.push(v); if(v<minV)minV=v; if(v>maxV)maxV=v; }
+  if(maxV===minV)maxV=minV+1;
+  const X=m=>pad+(W-pad-12)*(m/months);
+  const Y=v=>{ return (H-pad)-(H-pad-12)*((v-minV)/(maxV-minV)); };
+  // grilla cero
+  x.strokeStyle='#e6e9ec'; x.lineWidth=1;
+  x.beginPath(); x.moveTo(pad,Y(0)); x.lineTo(W-12,Y(0)); x.stroke();
+  x.fillStyle='#9aa3ab'; x.font='11px sans-serif'; x.fillText('$0',6,Y(0)+4);
+  // eje meses
+  [0,12,24,36,48].forEach(m=>{ x.fillStyle='#9aa3ab'; x.fillText('m'+m, X(m)-8, H-pad+18); });
+  // línea fin de contrato (48)
+  x.strokeStyle='#c9ccd0'; x.setLineDash([4,4]); x.beginPath(); x.moveTo(X(48),12); x.lineTo(X(48),H-pad); x.stroke(); x.setLineDash([]);
+  // área + línea
+  x.beginPath(); pts.forEach((v,m)=>{ const px=X(m),py=Y(v); m?x.lineTo(px,py):x.moveTo(px,py); });
+  x.strokeStyle='#0f2e1f'; x.lineWidth=2.5; x.stroke();
+  // break-even
+  if(neto>0){ const bm=capex/neto; if(bm<=months){ x.fillStyle='#ffd24a'; x.strokeStyle='#caa400'; x.beginPath(); x.arc(X(bm),Y(0),6,0,7); x.fill(); x.stroke();
+    x.fillStyle='#0f2e1f'; x.font='bold 11px sans-serif'; x.fillText(Math.round(bm)+' meses', X(bm)-18, Y(0)-12); } }
+  // valor final
+  const fin=pts[months]; x.fillStyle=fin>=0?'#2f9e57':'#b6553a'; x.font='bold 12px sans-serif';
+  x.fillText((fin>=0?'+$':'-$')+fmt(Math.abs(fin)), W-110, Y(fin)+(fin>=0?-8:16));
+}
+
+render();
+window.addEventListener('resize', ()=>render());
+</script>
+</body>
+</html>
