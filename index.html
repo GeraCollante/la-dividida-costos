@@ -121,7 +121,7 @@
           <div class="big"><div class="k">ROI anual</div><div class="v" id="rRoi">—</div></div>
         </div>
         <canvas id="chart" width="800" height="300"></canvas>
-        <div class="chart-cap">Caja acumulada a 48 meses (contrato). 🟡 = break-even.</div>
+        <div class="chart-cap">Caja acumulada a 48 meses (contrato). 🟡 = break-even. La pendiente se achata en verano (baja por calor, según temperatura real de la zona).</div>
       </div>
     </div>
   </section>
@@ -216,6 +216,10 @@ const C = [
   {id:"precioCabezaDia", l:"Precio por cabeza (día)", min:0, max:6000, step:500, def:1000, u:"ARS"},
   {id:"turnosDiaMes", l:"Turnos de día por mes (total)", min:0, max:120, step:5, def:20, u:""},
   {id:"cantina", l:"Ganancia cantina por mes", min:0, max:1500000, step:500, def:300000, u:"ARS", hint:"el doc no lo cuantifica = upside"},
+  {g:"Estacionalidad — Córdoba", icon:"thermometer-sun"},
+  {id:"mesApertura", l:"Mes de apertura", min:0, max:11, step:1, def:2, u:"mes", hint:"abrir antes del verano cambia mucho el repago"},
+  {id:"umbralTemp", l:"Temp. tope cómoda", min:20, max:38, step:1, def:27, u:"°C", hint:"arriba de esto la gente deja de venir"},
+  {id:"ocupMin", l:"Ocupación en pico de calor", min:0, max:100, step:5, def:50, u:"%", hint:"enero ~30°C (máx. real de la zona)"},
   {g:"Costos operativos (mensual)", icon:"trending-down"},
   {id:"luz", l:"Luz", min:0, max:600000, step:500, def:250000, u:"ARS", hint:"boleta real de la zona"},
   {id:"encargado", l:"Encargado / playero", min:400000, max:2000000, step:100000, def:500000, u:"ARS"},
@@ -227,6 +231,7 @@ const C = [
 ];
 
 const fmt = n => Math.round(n).toLocaleString('es-AR');
+const MONTHS = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const st = {};
 const cont = document.getElementById('controls');
 C.forEach(c => {
@@ -249,45 +254,57 @@ C.forEach(c => {
 });
 
 function setVal(id,u){ const e=document.getElementById('v_'+id); if(!e)return;
-  e.textContent=(u==='ARS'?'$'+fmt(st[id]):fmt(st[id])); }
+  e.textContent=(u==='ARS'?'$'+fmt(st[id]):(u==='%'?fmt(st[id])+'%':(u==='°C'?fmt(st[id])+'°C':(u==='mes'?MONTHS[st[id]]:fmt(st[id]))))); }
 
+// temperatura máxima media mensual (Córdoba/Río Primero, Weather Spark) ene..dic
+const TEMPS=[30,28,27,24,20,18,18,20,23,25,28,29];
+const MAXT=Math.max(...TEMPS);
+function factorMes(cm){
+  const t=TEMPS[cm];
+  if(t<=st.umbralTemp || MAXT<=st.umbralTemp) return 1;
+  const f=1-(1-st.ocupMin/100)*(t-st.umbralTemp)/(MAXT-st.umbralTemp);
+  return Math.max(st.ocupMin/100, Math.min(1,f));
+}
 function render(){
   C.forEach(c=>{ if(c.id && c.type!=='num') setVal(c.id,c.u); });
   const ingNoche=(st.precioCabezaNoche*st.jugadores)*st.turnosNoche*st.diasMes*st.canchas;
   const ingDia=(st.precioCabezaDia*st.jugadores)*st.turnosDiaMes;
-  const ingreso=ingNoche+ingDia+st.cantina;
+  const ingresoPleno=ingNoche+ingDia+st.cantina;
   const opex=st.luz+st.encargado+st.mantenimiento+st.otros;
-  const neto=ingreso-opex;
   const capexARS=st.capexUSD*st.tc;
-  const netoUSD=st.tc?neto/st.tc:0;
+  let sf=0; for(let m=0;m<12;m++) sf+=factorMes(m); const avg=sf/12;
+  const netoProm=ingresoPleno*avg-opex;
+  const netoUSD=st.tc?netoProm/st.tc:0;
+  // 48 meses arrancando en el mes de apertura, con la curva real de temperatura
+  const pts=[-capexARS]; let be=-1;
+  for(let m=1;m<=48;m++){ const cm=(st.mesApertura+(m-1))%12;
+    const v=pts[m-1]+(ingresoPleno*factorMes(cm)-opex); pts.push(v); if(be<0&&v>=0) be=m; }
   document.getElementById('rNeto').innerHTML=
-    `$${fmt(neto)} <small>ARS/mes</small><br><span style="font-size:15px;color:var(--gris)">≈ US$ ${fmt(netoUSD)}/mes</span>`;
+    `$${fmt(netoProm)} <small>ARS/mes prom.</small><br><span style="font-size:15px;color:var(--gris)">≈ US$ ${fmt(netoUSD)}/mes</span>`;
   const pay=document.getElementById('rPay');
-  if(neto<=0){ pay.innerHTML=`<span class="pay-bad">no repaga</span>`; }
-  else { const m=capexARS/neto; const cls=m<24?'pay-ok':(m<=36?'pay-warn':'pay-bad');
-    pay.innerHTML=`<span class="${cls}">${m>60?'+60':Math.round(m)}</span> <small>meses</small>`; }
-  const roi=neto*12/capexARS*100;
-  document.getElementById('rRoi').innerHTML=(neto<=0||!isFinite(roi)?'<span class="pay-bad">—</span>':`${fmt(roi)}<small>%</small>`);
-  drawChart(neto,capexARS);
+  if(netoProm<=0||be<0){ pay.innerHTML=`<span class="pay-bad">+48</span> <small>meses</small>`; }
+  else { const cls=be<24?'pay-ok':(be<=36?'pay-warn':'pay-bad');
+    pay.innerHTML=`<span class="${cls}">${be}</span> <small>meses</small>`; }
+  const roi=netoProm*12/capexARS*100;
+  document.getElementById('rRoi').innerHTML=(netoProm<=0||!isFinite(roi)?'<span class="pay-bad">—</span>':`${fmt(roi)}<small>%</small>`);
+  drawChart(pts, be);
 }
-function drawChart(neto,capex){
+function drawChart(pts, be){
   const cv=document.getElementById('chart'),x=cv.getContext('2d');
   const W=cv.width,H=cv.height,pad=46,months=48;
   x.clearRect(0,0,W,H);
-  const pts=[];let minV=-capex,maxV=-capex;
-  for(let m=0;m<=months;m++){const v=-capex+neto*m;pts.push(v);if(v<minV)minV=v;if(v>maxV)maxV=v;}
-  if(maxV===minV)maxV=minV+1;
+  let minV=Math.min(...pts),maxV=Math.max(...pts); if(maxV===minV)maxV=minV+1;
   const X=m=>pad+(W-pad-14)*(m/months), Y=v=>(H-pad)-(H-pad-14)*((v-minV)/(maxV-minV));
   x.strokeStyle='#e6e9ec';x.lineWidth=1;x.beginPath();x.moveTo(pad,Y(0));x.lineTo(W-14,Y(0));x.stroke();
-  x.fillStyle='#9aa3ab';x.font='11px sans-serif';x.fillText('$0',6,Y(0)+4);
+  x.fillStyle='#9aa3ab';x.font='11px Inter,sans-serif';x.fillText('$0',6,Y(0)+4);
   [0,12,24,36,48].forEach(m=>x.fillText('m'+m,X(m)-8,H-pad+18));
   x.strokeStyle='#c9ccd0';x.setLineDash([4,4]);x.beginPath();x.moveTo(X(48),12);x.lineTo(X(48),H-pad);x.stroke();x.setLineDash([]);
   x.beginPath();pts.forEach((v,m)=>{const px=X(m),py=Y(v);m?x.lineTo(px,py):x.moveTo(px,py);});
   x.strokeStyle='#0f2e1f';x.lineWidth=2.5;x.stroke();
-  if(neto>0){const bm=capex/neto;if(bm<=months){x.fillStyle='#ffd24a';x.strokeStyle='#caa400';
-    x.beginPath();x.arc(X(bm),Y(0),6,0,7);x.fill();x.stroke();
-    x.fillStyle='#0f2e1f';x.font='bold 11px sans-serif';x.fillText(Math.round(bm)+' meses',X(bm)-18,Y(0)-12);}}
-  const fin=pts[months];x.fillStyle=fin>=0?'#2f9e57':'#b6553a';x.font='bold 12px sans-serif';
+  if(be>0&&be<=months){x.fillStyle='#ffd24a';x.strokeStyle='#caa400';
+    x.beginPath();x.arc(X(be),Y(0),6,0,7);x.fill();x.stroke();
+    x.fillStyle='#0f2e1f';x.font='bold 11px Inter,sans-serif';x.fillText(be+' meses',X(be)-18,Y(0)-12);}
+  const fin=pts[months];x.fillStyle=fin>=0?'#2f9e57':'#b6553a';x.font='bold 12px Inter,sans-serif';
   x.fillText((fin>=0?'+$':'-$')+fmt(Math.abs(fin)),W-118,Y(fin)+(fin>=0?-8:16));
 }
 render();
