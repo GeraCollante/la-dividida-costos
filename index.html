@@ -51,6 +51,13 @@
   .subtot td{font-weight:700;background:#fcfdfc}
   .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
   .tag.ok{background:var(--okbg);color:var(--ok)} .tag.hund{background:var(--hundbg);color:var(--hund)}
+  .cmp td{vertical-align:middle}
+  .cmp .crit{font-weight:700;color:var(--tinta)}
+  .cmp td.w{font-weight:700}
+  .cmp td.w.gp{background:var(--okbg);color:var(--verde)}
+  .cmp td.w.fb{background:#eaf0fc;color:#2c5bd6}
+  .win{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .win.gp{background:var(--okbg);color:var(--ok)} .win.fb{background:#eaf0fc;color:#2c5bd6} .win.tie{background:#f0f1f2;color:var(--gris)}
   .totrow td{background:var(--verde);color:#fff;font-weight:800;font-size:15px}.totrow td.cost{color:var(--amarillo)}
   .totrow2 td{background:#1c5238;color:#fff;font-weight:800;font-size:15px}.totrow2 td.cost{color:var(--amarillo)}
   /* calculadora */
@@ -215,6 +222,32 @@
       <div class="note red"><i data-lucide="triangle-alert"></i><div><b>Terreno = riesgo #1.</b> Muchos lotes junto a las vías son del Estado Nacional (ex-ferrocarril / AABE), no municipales. <b>Verificá el dominio en Catastro antes de invertir.</b></div></div>
     </aside>
   </div>
+
+  <section>
+    <h2><i data-lucide="git-compare"></i> Cotizaciones de césped: GreenPro vs Forbex</h2>
+    <p class="sub">Los dos presupuestos reales, campo por campo (1 cancha de 40×20 · 826 m²). El césped es el rubro más caro y el que define la calidad de juego: conviene elegir con la cabeza fría.</p>
+    <div class="card">
+      <table class="cmp">
+        <thead><tr><th>Criterio</th><th>GreenPro · nacional</th><th>Forbex · TenCate (importado)</th><th style="text-align:right">Gana</th></tr></thead>
+        <tbody>
+          <tr><td class="crit">Hilo / producto</td><td>Monofilamento bicolor 52 mm, SBR 100%, UV máx.</td><td class="w fb">TenCate 360, mono 52 mm — marca top mundial</td><td style="text-align:right"><span class="win fb">Forbex</span></td></tr>
+          <tr><td class="crit">Precio por m²</td><td class="w gp">US$ 19,9</td><td>US$ 27,2</td><td style="text-align:right"><span class="win gp">GreenPro</span></td></tr>
+          <tr><td class="crit">Precio cancha 40×20</td><td class="w gp">~ US$ 16.500</td><td>US$ 22.467</td><td style="text-align:right"><span class="win gp">GreenPro</span></td></tr>
+          <tr><td class="crit">Garantía escrita</td><td class="w gp">6 años</td><td>5 años</td><td style="text-align:right"><span class="win gp">GreenPro</span></td></tr>
+          <tr><td class="crit">Ubicación / flete</td><td class="w gp">Villa Allende — ~80 km de Río Primero</td><td>Importado, flete largo</td><td style="text-align:right"><span class="win gp">GreenPro</span></td></tr>
+          <tr><td class="crit">Posventa / asistencia</td><td class="w gp">Fábrica propia al lado</td><td>A distancia</td><td style="text-align:right"><span class="win gp">GreenPro</span></td></tr>
+          <tr><td class="crit">Instalación</td><td>1 técnico + ayudantes que ponés vos</td><td class="w fb">Cuadrilla completa (menos riesgo)</td><td style="text-align:right"><span class="win fb">Forbex</span></td></tr>
+          <tr><td class="crit">Financiación</td><td>50% + hasta 12 cuotas en $ @ 4%/mes</td><td class="w fb">20% + 23 cuotas en USD @ 0,81%/mes</td><td style="text-align:right"><span class="win fb">Forbex</span></td></tr>
+          <tr><td class="crit">Moneda</td><td>Pesos, ajusta x USD oficial BNA</td><td>USD directo (BNA)</td><td style="text-align:right"><span class="win tie">Empate</span></td></tr>
+          <tr><td class="crit">Relleno incluido</td><td>Caucho molido SBR</td><td>Caucho (arena aparte en ambos)</td><td style="text-align:right"><span class="win tie">Empate</span></td></tr>
+          <tr><td class="crit">Plazo de entrega</td><td class="w gp">30–40 días</td><td>A confirmar</td><td style="text-align:right"><span class="win gp">GreenPro</span></td></tr>
+          <tr class="totrow"><td>Impacto en el predio (2 canchas)</td><td class="cost">~ 65.500</td><td class="cost">~ 77.500</td><td style="text-align:right"><span class="win gp">−US$ 12k</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><i data-lucide="lightbulb" style="color:#caa400"></i><div><b>Marcador: GreenPro 6 · Forbex 3 · Empate 2.</b> GreenPro gana por precio, cercanía y garantía; Forbex por respaldo de marca, instalación llave en mano y financiación blanda en dólares. <b>La jugada:</b> andá a ver en persona una cancha GreenPro con 3-4 años de uso (tienen portfolio de obras). Si el hilo nacional aguanta el desgaste a la intemperie, te ahorrás ~US$12.000 en las 2 canchas con posventa al lado. Forbex queda como respaldo premium y palanca de negociación.</div></div>
+    <p style="font-size:12.5px;color:var(--gris);margin-top:8px">GreenPro cotiza en pesos: $18.000.000 por 600 m² (todo incluido: césped + caucho + cinta + colocación), pasado a US$ al blue (~$1.505). Ambos ajustan por dólar oficial al pagar y excluyen IVA, arena, nivelación y fletes.</p>
+  </section>
 
   <section>
     <h2><i data-lucide="search"></i> Supuestos, riesgos y confianza</h2>
